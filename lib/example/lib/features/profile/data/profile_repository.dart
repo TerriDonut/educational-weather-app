@@ -14,10 +14,14 @@ class ProfileRepository {
        _profileLocalDataSource = profileLocalDataSource;
 
   Future<ProfileModel> getProfile() async {
-    final profile = await _profileRemoteDataSource.getProfile();
-    await _profileLocalDataSource.setProfile(profile);
+    final remoteProfileDto = await _profileRemoteDataSource.getProfile();
+    final localProfileDto = await _profileLocalDataSource.getProfile();
 
-    return profile;
+    return ProfileModel(
+      name: remoteProfileDto.name,
+      age: remoteProfileDto.age,
+      gender: localProfileDto.gender,
+    );
   }
 
   Future<RatingModel> getRating() async {

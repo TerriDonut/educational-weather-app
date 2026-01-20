@@ -4,4 +4,10 @@ class MyLocalStorage {
 
     /// ...
   }
+
+  Future<void> get(String key) async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    /// ...
+  }
 }

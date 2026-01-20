@@ -1,5 +1,5 @@
 import 'package:test_project_weather/example/lib/core/my_http_client.dart';
-import 'package:test_project_weather/example/lib/features/profile/data/models/profile_model.dart';
+import 'package:test_project_weather/example/lib/features/profile/data/dto/profile_remote_dto.dart';
 import 'package:test_project_weather/example/lib/features/profile/data/models/rating_model.dart';
 
 class ProfileRemoteDataSource {
@@ -9,10 +9,10 @@ class ProfileRemoteDataSource {
     required MyHttpClient myHttpClient,
   }) : _myHttpClient = myHttpClient;
 
-  Future<ProfileModel> getProfile() async {
+  Future<ProfileRemoteDto> getProfile() async {
     await _myHttpClient.get('https://api.example.com/profile');
 
-    return ProfileModel(name: 'John Doe', age: 30);
+    return ProfileRemoteDto(name: 'John Doe', age: 30);
   }
 
   Future<RatingModel> getRating() async {
