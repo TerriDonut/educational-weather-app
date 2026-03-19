@@ -1,5 +1,3 @@
-// TODO(kshabanov): rename file + 
-// TODO(kshabanov): не должно быть toJson, fromJson, это в dto +
 class CurrentWeatherModel {
   final int cityId;
   final String city;

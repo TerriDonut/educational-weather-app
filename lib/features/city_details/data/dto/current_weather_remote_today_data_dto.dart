@@ -4,6 +4,7 @@ part 'current_weather_remote_today_data_dto.g.dart';
 
 @JsonSerializable()
 class CurrentWeatherRemoteTodayDataDto {
+  // TODO(kshabanov): remove cityId
   final int cityId;
   final String city;
   final int currentTemp;
@@ -18,8 +19,10 @@ class CurrentWeatherRemoteTodayDataDto {
     required this.low,
   });
 
-  factory CurrentWeatherRemoteTodayDataDto.fromJson(Map<String, dynamic> json) =>
-      _$CurrentWeatherRemoteTodayDataDtoFromJson(json);
+  factory CurrentWeatherRemoteTodayDataDto.fromJson(
+    Map<String, dynamic> json,
+  ) => _$CurrentWeatherRemoteTodayDataDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CurrentWeatherRemoteTodayDataDtoToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$CurrentWeatherRemoteTodayDataDtoToJson(this);
 }

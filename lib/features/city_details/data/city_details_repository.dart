@@ -12,7 +12,11 @@ class CityDetailsRepository {
     required CityDetailsRemoteDataSource cityDetailsRemoteDataSource,
   }) : _cityDetailsRemoteDataSource = cityDetailsRemoteDataSource;
 
-  Future<CurrentWeatherModel> getCurrentWeather(int cityId, String nameCity) async {
+  // TODO(kshabanov): remove nameCity
+  Future<CurrentWeatherModel> getCurrentWeather(
+    int cityId,
+    String nameCity,
+  ) async {
     final results = await Future.wait<Object>([
       _cityDetailsRemoteDataSource.getCurrentWeatherToday(cityId),
       _cityDetailsRemoteDataSource.getCurrentWeatherFuture(cityId),
@@ -52,8 +56,9 @@ class CityDetailsRepository {
   }
 
   Future<List<DailyWeatherModel>> getDailyWeather(int cityId) async {
-    final dailyWeatherDtos = await _cityDetailsRemoteDataSource
-        .getDailyWeather(cityId);
+    final dailyWeatherDtos = await _cityDetailsRemoteDataSource.getDailyWeather(
+      cityId,
+    );
 
     return dailyWeatherDtos
         .map(

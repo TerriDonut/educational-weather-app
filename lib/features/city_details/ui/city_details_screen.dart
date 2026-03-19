@@ -32,6 +32,7 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   bool _isAddingToFavorites = false;
 
+  // TODO(kshabanov): не должно быть кнопки на уже избранном городе
   Future<void> _handleAddToFavorites() async {
     if (_isAddingToFavorites) {
       return;
@@ -65,12 +66,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ),
       );
     } finally {
-
       if (mounted) {
         setState(() {
           _isAddingToFavorites = false;
         });
-        
       }
     }
   }
@@ -111,8 +110,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                     const Spacer(),
                     IconButton(
-                      onPressed:
-                          _isAddingToFavorites ? null : _handleAddToFavorites,
+                      onPressed: _isAddingToFavorites
+                          ? null
+                          : _handleAddToFavorites,
                       icon: _isAddingToFavorites
                           ? const SizedBox(
                               width: 20,

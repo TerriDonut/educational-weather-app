@@ -13,7 +13,7 @@ class SearchButtonBloc {
 
   Stream<SearchButtonState> get state => _stateController.stream;
 
-  List<_IndexedCity>? _indexed; 
+  List<_IndexedCity>? _indexed;
   String? _citiesError;
 
   Timer? _debounce;
@@ -33,18 +33,22 @@ class SearchButtonBloc {
           .map((c) => _IndexedCity(model: c, normName: _norm(c.city)))
           .toList(growable: false);
 
-      _emitState(const SearchButtonState$Ready(
-        query: '',
-        suggestions: <ListCitiesModel>[],
-      ));
+      _emitState(
+        const SearchButtonState$Ready(
+          query: '',
+          suggestions: <ListCitiesModel>[],
+        ),
+      );
     } catch (e) {
       _citiesError = e is WeatherException ? e.message : e.toString();
 
-      _emitState(SearchButtonState$Ready(
-        query: '',
-        suggestions: const <ListCitiesModel>[],
-        citiesErrorMessage: _citiesError,
-      ));
+      _emitState(
+        SearchButtonState$Ready(
+          query: '',
+          suggestions: const <ListCitiesModel>[],
+          citiesErrorMessage: _citiesError,
+        ),
+      );
     }
   }
 
@@ -66,11 +70,13 @@ class SearchButtonBloc {
 
   void clear() {
     _lastQuery = '';
-    _emitState(SearchButtonState$Ready(
-      query: '',
-      suggestions: const <ListCitiesModel>[],
-      citiesErrorMessage: _citiesError,
-    ));
+    _emitState(
+      SearchButtonState$Ready(
+        query: '',
+        suggestions: const <ListCitiesModel>[],
+        citiesErrorMessage: _citiesError,
+      ),
+    );
   }
 
   void dispose() {
@@ -82,24 +88,31 @@ class SearchButtonBloc {
 
   void _recomputeSuggestions(String queryRaw) {
     final idx = _indexed;
+
     if (idx == null) {
       _emitState(SearchButtonState$LoadingCities(query: queryRaw));
       return;
     }
 
     final q = _norm(queryRaw);
+
     if (q.isEmpty) {
-      _emitState(SearchButtonState$Ready(
-        query: queryRaw,
-        suggestions: const <ListCitiesModel>[],
-        citiesErrorMessage: _citiesError,
-      ));
+      _emitState(
+        SearchButtonState$Ready(
+          query: queryRaw,
+          suggestions: const <ListCitiesModel>[],
+          citiesErrorMessage: _citiesError,
+        ),
+      );
+
       return;
     }
 
     final scored = <_ScoredCity>[];
+
     for (final c in idx) {
       final score = _score(q, c.normName);
+
       if (score > 0) {
         scored.add(_ScoredCity(model: c.model, score: score));
       }
@@ -107,9 +120,11 @@ class SearchButtonBloc {
 
     scored.sort((a, b) {
       final s = b.score.compareTo(a.score);
+
       if (s != 0) {
         return s;
       }
+
       return a.model.city.compareTo(b.model.city);
     });
 
@@ -117,16 +132,18 @@ class SearchButtonBloc {
 
     if (top.isEmpty) {
       _emitState(SearchButtonState$NoMatch(query: queryRaw));
+
       return;
     }
 
-    _emitState(SearchButtonState$Ready(
-      query: queryRaw,
-      suggestions: top,
-      citiesErrorMessage: _citiesError,
-    ));
+    _emitState(
+      SearchButtonState$Ready(
+        query: queryRaw,
+        suggestions: top,
+        citiesErrorMessage: _citiesError,
+      ),
+    );
   }
-
 
   String _norm(String s) {
     return s
@@ -135,6 +152,10 @@ class SearchButtonBloc {
         .replaceAll('ё', 'е')
         .replaceAll(RegExp(r'\s+'), ' ');
   }
+
+  // TODO(kshabanov): переименовать в глагол
+  // TODO(kshabanov): не использовать непонятные имена
+  // TODO(kshabanov): возможно стоит разбить на несколько функций, если внутри этой несколько независимых сложных действий
 
   int _score(String q, String name) {
     if (name == q) {
@@ -146,12 +167,14 @@ class SearchButtonBloc {
     }
 
     final pos = name.indexOf(q);
+
     if (pos >= 0) {
       return 70000 - pos * 50 - (name.length - q.length);
     }
 
     final matched = _orderedMatchCount(q, name);
     final ratioOk = matched >= (q.length * 0.7).ceil();
+
     if (!ratioOk) {
       return 0;
     }

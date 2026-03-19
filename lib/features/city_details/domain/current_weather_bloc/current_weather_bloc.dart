@@ -17,17 +17,12 @@ class CurrentWeatherBloc {
   }) : _weatherScreenRepository = weatherScreenRepository;
 
   Future<void> getCurrentWeather(int cityId, String nameCity) async {
-
-    // TODO(kshabanov): вынести это в функцию emit +
-      // if (_stateController.isClosed) {
-      //   return;
-      // }
-
     _emitState(const CurrentWeatherState$Loading());
 
     try {
       final currentWeather = await _weatherScreenRepository.getCurrentWeather(
-        cityId, nameCity
+        cityId,
+        nameCity,
       );
 
       _emitState(CurrentWeatherState$Success(currentWeather));

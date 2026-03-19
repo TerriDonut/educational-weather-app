@@ -26,7 +26,6 @@ class FavoritesStateAdd$Success extends FavoritesState {
   });
 }
 
-
 class FavoritesStateDel$Success extends FavoritesState {
   final List<String> favoriteCities;
 

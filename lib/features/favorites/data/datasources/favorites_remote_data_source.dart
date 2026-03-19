@@ -5,7 +5,7 @@ import 'package:test_project_weather/features/common/weather_conditions.dart';
 //import 'package:test_project_weather/features/common/weather_exception.dart';
 import 'package:test_project_weather/features/favorites/data/dto/favorites_cities_dto.dart';
 
-
+// TODO(kshabanov): change data layer structure
 /// API
 ///
 /// WEATHER API
@@ -56,8 +56,18 @@ class FavoritesRemoteDataSource {
     required MyHttpClient myHttpClient,
   }) : _myHttpClient = myHttpClient;
 
+  // TODO(kshabanov): сделать все по конртактам как описывали выше
+  // Future<List<FavoriteCityDto>> getFavoritesCities() async {
+  //   final response = await _myHttpClient.get(
+  //     'https://api.test.com/favorites/',
+  //   );
+  //   return response.map((e) => FavoriteCityDto.fromJson(e)).toList();
+  // }
+
   Future<FavoritesCitiesDto> getFavoritesCities(int cityId) async {
-    await _myHttpClient.get('https://api.test.com/get_favorites_cities/$cityId');
+    await _myHttpClient.get(
+      'https://api.test.com/get_favorites_cities/$cityId',
+    );
 
     // if (_random.nextBool()) {
     //   throw WeatherException('Ошибка загрузки избранных городов');
@@ -78,10 +88,15 @@ class FavoritesRemoteDataSource {
   }
 
   Future<void> addFavoritesCities(int cityId) async {
-    await _myHttpClient.add('https://api.test.com/add_favorites_cities_list/$cityId');
+    // TODO(kshabanov): use POST instead of ADD
+    await _myHttpClient.add(
+      'https://api.test.com/add_favorites_cities_list/$cityId',
+    );
   }
 
   Future<void> removeFavoritesCities(int cityId) async {
-    await _myHttpClient.delete('https://api.test.com/remove_favorites_cities_list/$cityId');
+    await _myHttpClient.delete(
+      'https://api.test.com/remove_favorites_cities_list/$cityId',
+    );
   }
 }

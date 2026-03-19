@@ -19,7 +19,9 @@ class CityDetailsRemoteDataSource {
   Future<CurrentWeatherRemoteTodayDataDto> getCurrentWeatherToday(
     int cityId,
   ) async {
-    await _myHttpClient.get('https://api.test.com/current_weather/today/$cityId');
+    await _myHttpClient.get(
+      'https://api.test.com/current_weather/today/$cityId',
+    );
 
     // if (_rnd.nextBool()) {
     //   throw WeatherException('Ошибка загрузки текущего прогноза погоды');
@@ -38,12 +40,11 @@ class CityDetailsRemoteDataSource {
     );
   }
 
-  // TODO(kshabanov): city должен быть - int cityId +
   Future<CurrentWeatherRemoteFutureDataDto> getCurrentWeatherFuture(
     int cityId,
   ) async {
     await _myHttpClient.get(
-      'https://api.test.com/current_weather/futere/$cityId',
+      'https://api.test.com/current_weather/future/$cityId',
     );
 
     if (_rnd.nextBool()) {
@@ -62,8 +63,6 @@ class CityDetailsRemoteDataSource {
     );
   }
 
-  // TODO(kshabanov): city должен быть - int cityId +
-  // TODO(kshabanov): создать dto для всех моделей и из датасурса возвращать только dto, модели возвращать из репо +
   Future<List<HourlyWeatherDto>> getHourlyWeather(int cityId) async {
     await _myHttpClient.get('https://api.test.com/hourly_weather/$cityId');
 
@@ -87,7 +86,6 @@ class CityDetailsRemoteDataSource {
     });
   }
 
-  // TODO(kshabanov): city должен быть - int cityId +
   Future<List<DailyWeatherDto>> getDailyWeather(int cityId) async {
     await _myHttpClient.get('https://api.test.com/daily_weather/$cityId');
 

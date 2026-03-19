@@ -1,10 +1,9 @@
-
 part of '../favorites_screen.dart';
 
-// TODO(kshabanov): rename +
+// TODO(kshabanov): rename to SearchField
 // TODO(kshabanov): создать отдельный блок и убрать жесткую связность со страницей избранного. +
 // TODO(kshabanov): (пока не делать) сделать так чтобы поле поиска можно было на любой странице переиспользовать
-// TODO(kshabanov): поправить баг чтобы при открытии клавиатуры она не закрывала поле поиска +
+// TODO(kshabanov): поправить баг чтобы при открытии клавиатуры она не закрывала поле поиска
 class _SearchButtonCitiesSection extends StatefulWidget {
   final SearchButtonState state;
   final void Function(String query) onQueryChanged;
@@ -73,8 +72,8 @@ class _SearchButtonCitiesSectionState
 
     final SearchButtonState$Ready? readyState =
         widget.state is SearchButtonState$Ready
-            ? widget.state as SearchButtonState$Ready
-            : null;
+        ? widget.state as SearchButtonState$Ready
+        : null;
 
     final bool hasCitiesError = readyState?.hasCitiesError ?? false;
     final List<ListCitiesModel> suggestions =
@@ -83,8 +82,8 @@ class _SearchButtonCitiesSectionState
     final String hintText = isLoading
         ? 'Загрузка списка городов...'
         : hasCitiesError
-            ? 'Список городов не загружен'
-            : 'Поиск города или аэропорта';
+        ? 'Список городов не загружен'
+        : 'Поиск города или аэропорта';
 
     final bool isEnabled = !isLoading && !hasCitiesError;
 
@@ -94,7 +93,6 @@ class _SearchButtonCitiesSectionState
       displayStringForOption: (city) => city.city,
       optionsViewOpenDirection: OptionsViewOpenDirection.up,
       optionsBuilder: (value) {
-
         if (!isEnabled || value.text.trim().isEmpty) {
           return const Iterable<ListCitiesModel>.empty();
         }
@@ -138,7 +136,7 @@ class _SearchButtonCitiesSectionState
       },
       optionsViewBuilder: (context, onSelected, options) {
         final items = options.toList(growable: false);
-        
+
         if (items.isEmpty) {
           return const SizedBox.shrink();
         }

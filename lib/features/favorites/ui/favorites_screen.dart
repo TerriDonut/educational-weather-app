@@ -212,3 +212,88 @@ class _FavoritesErrorSection extends StatelessWidget {
     );
   }
 }
+
+/////
+/// internationalization - i18n
+/// localization - l10n
+enum Language { en, ru, fr, cn }
+
+Language selectedLanguage = Language.en;
+
+void changeLanguage(Language language) {
+  selectedLanguage = language;
+}
+
+Map<String, String> frDictionary = {
+  'changeLanguage': 'Changer la langue',
+  'settings': 'Paramètres',
+  'profile': 'Profil',
+  'favorites': 'Favoris',
+};
+
+Map<String, String> enDictionary = {
+  'changeLanguage': 'Change language',
+  'settings': 'Settings',
+  'profile': 'Profile',
+  'favorites': 'Favorites',
+};
+
+Map<String, String> ruDictionary = {
+  'changeLanguage': 'Изменить язык',
+  'settings': 'Настройки',
+  'profile': 'Профиль',
+  'favorites': 'Избранное',
+};
+
+Map<String, String> cnDictionary = {
+  'changeLanguage': '更改语言',
+  'settings': '设置',
+  'profile': '个人资料',
+  'favorites': '收藏',
+};
+
+String getText(String key) {
+  switch (selectedLanguage) {
+    case Language.en:
+      return enDictionary[key]!;
+    case Language.ru:
+      return ruDictionary[key]!;
+    case Language.fr:
+      return frDictionary[key]!;
+    case Language.cn:
+      return cnDictionary[key]!;
+  }
+}
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        FilledButton(
+          child: Text(getText('changeLanguage')),
+          onPressed: () {
+            changeLanguage(
+              selectedLanguage == Language.en ? Language.ru : Language.en,
+            );
+          },
+        ),
+        Text(getText('settings')),
+        Text(getText('profile')),
+        Text(getText('favorites')),
+      ],
+    );
+  }
+}
+
+//// Themes
+/// dark theme
+/// light theme
+/// same implementation

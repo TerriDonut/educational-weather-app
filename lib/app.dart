@@ -1,7 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:test_project_weather/features/city_details/ui/city_details_screen.dart';
 import 'package:test_project_weather/features/favorites/ui/favorites_screen.dart';
+
+String selectedTheme = 'dark';
+
+void changeTheme(String theme) {
+  selectedTheme = theme;
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather main',
-      theme: ThemeData.dark(),
+      theme: selectedTheme == 'dark' ? ThemeData.dark() : ThemeData.light(),
       initialRoute: '/favorites',
       onGenerateRoute: (settings) {
         switch (settings.name) {

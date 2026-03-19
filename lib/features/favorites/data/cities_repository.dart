@@ -1,8 +1,6 @@
 import 'package:test_project_weather/features/favorites/data/datasources/cities_data_source.dart';
 import 'package:test_project_weather/features/favorites/data/models/list_cities_model.dart';
 
-// TODO(kshabanov): rename to cites_mock_data.json +
-
 class CitiesRepository {
   final CitiesDataSource _citiesDataSource;
 
